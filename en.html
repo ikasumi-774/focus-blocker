@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus Blocker | Block the sites you choose, by time, in Chrome and Edge</title>
+<meta name="description" content="A Chrome and Edge extension that blocks the sites you choose, such as video or social media, by time of day or by a daily time limit.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Focus Blocker">
+<meta property="og:description" content="Block the sites you choose by time of day or by a daily time limit. For Chrome and Edge.">
+<meta property="og:url" content="https://ikasumi-774.github.io/focus-blocker/en.html">
+<meta property="og:image" content="https://ikasumi-774.github.io/focus-blocker/og-en.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://ikasumi-774.github.io/focus-blocker/en.html">
+<link rel="alternate" hreflang="ja" href="https://ikasumi-774.github.io/focus-blocker/">
+<link rel="alternate" hreflang="en" href="https://ikasumi-774.github.io/focus-blocker/en.html">
+<link rel="alternate" hreflang="x-default" href="https://ikasumi-774.github.io/focus-blocker/en.html">
+<meta name="color-scheme" content="light dark">
+<style>
+:root {
+  --bg: #f6f7f4;
+  --text: #22252a;
+  --muted: #5d636b;
+  --line: #d8dbd3;
+  --card: #ffffff;
+  --accent: #2f6b4f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1d1b;
+    --text: #e6e7e3;
+    --muted: #a3a9a5;
+    --line: #3a403c;
+    --card: #232824;
+    --accent: #8fcaa9;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+.lang { text-align: right; font-size: 14px; margin: 0 0 8px; }
+a { color: var(--accent); }
+h1 { font-size: 30px; line-height: 1.3; margin: 16px 0 4px; }
+.lead { font-size: 18px; margin: 12px 0 24px; }
+.status { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin: 0 0 28px; }
+section { border-top: 1px solid var(--line); padding: 8px 0 4px; }
+h2 { font-size: 20px; margin: 20px 0 8px; }
+ul { padding-left: 1.3em; margin: 0 0 16px; }
+li { margin: 4px 0; }
+p { margin: 0 0 14px; }
+.table-wrap { overflow-x: auto; margin: 0 0 16px; }
+table { border-collapse: collapse; width: 100%; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+th { font-weight: 600; }
+td:nth-child(2), thead th:nth-child(2) { white-space: nowrap; }
+.small { font-size: 14px; color: var(--muted); }
+footer { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 16px; font-size: 14px; color: var(--muted); }
+footer ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="lang"><a href="./" hreflang="ja" lang="ja">日本語</a></p>
+
+<header>
+  <h1>Focus Blocker</h1>
+  <p class="lead">A Chrome and Edge extension that blocks the sites you choose, such as video or social media, by time of day or by a daily time limit.</p>
+</header>
+
+<p class="status">We are preparing to publish it on the Chrome Web Store and Microsoft Edge Add-ons. Installation steps will appear here once it is available.</p>
+
+<main>
+<section>
+  <h2>What it does</h2>
+  <ul>
+    <li>Add the sites you want to limit, and set a daily limit for each one. When you use up the time, the site is blocked for the rest of the day.</li>
+    <li>Create schedules by day and time (for example, block on weekdays from 9:00 to 18:00).</li>
+    <li>When you open a blocked site, a page shows when it will open again.</li>
+    <li>See how many minutes you spent on each site today on the settings page.</li>
+  </ul>
+  <p>Time is counted while the browser window is in front and the active tab is one of the sites on your list. If you are inactive for 2 minutes, it keeps counting only while that tab is playing sound (for example, while you just watch a video). Muting the tab does not stop the count if a video is still playing. Background tabs and time while your screen is locked are not counted.</p>
+</section>
+
+<section>
+  <h2>Free and paid versions</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th></th><th>Free</th><th>Paid</th></tr></thead>
+    <tbody>
+      <tr><th>Sites to block</th><td>Up to 10</td><td>Up to 100</td></tr>
+      <tr><th>Schedules</th><td>1 (applies to all sites on your list)</td><td>Up to 5, each with its own choice of sites</td></tr>
+      <tr><th>Daily limits, block page, today's time</th><td>Included</td><td>Included</td></tr>
+      <tr><th>Make it harder to unblock</th><td>—</td><td>Adds a 60-second wait before you can loosen settings for a site that is currently blocked</td></tr>
+      <tr><th>7-day chart</th><td>—</td><td>Time used per site over the past 7 days</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>You can try the paid features for 7 days with the "Try for 7 days" button on the settings page. No card is needed, and the extension switches back to the free version automatically after 7 days. The trial can be used once. On the free version, sites beyond the first 10 and schedules beyond the first one are kept but no longer block anything.</p>
+</section>
+
+<section>
+  <h2>Pricing</h2>
+  <ul>
+    <li>Yearly: $14.99 per year, tax included. It renews automatically every year, and you pay $14.99 at each renewal until you cancel.</li>
+    <li>One-time: $29.99, tax included. You pay once. It does not renew.</li>
+  </ul>
+  <p>You can buy from the buttons on the extension's settings page. Payment processing, billing, and taxes are handled by Dodo Payments, our reseller (merchant of record). After payment, you receive a license key on the purchase page and by email. Paste the key into the settings page and the paid version is active right away.</p>
+  <p>One key can be activated in up to 10 browsers. You can cancel the yearly plan online at any time from the customer portal linked in your purchase confirmation email. After you cancel, you keep the paid version until the end of the period you have paid for. See the <a href="terms.html#en-refund">terms of sale</a> for refunds and cancellation.</p>
+  <p class="small">If you choose another currency on the purchase page, the amount shown there applies.</p>
+</section>
+
+<section>
+  <h2>Records and privacy</h2>
+  <p>Your settings and the record of which sites you used and for how long are stored only in your browser and are never sent off your PC. The extension contacts Dodo Payments only to activate, check, or remove a paid-version key. See the <a href="privacy.html#en">privacy policy</a> for details.</p>
+</section>
+
+<section>
+  <h2>Please note</h2>
+  <ul>
+    <li>You can always turn off or remove the extension itself. It helps you stick to your limits, but it cannot guarantee that you won't overuse a site.</li>
+    <li>It works only in the browser where it is installed. It does not block other browsers or phone apps.</li>
+    <li>It is not a tool to get around school or workplace network restrictions. It only blocks the sites you add yourself.</li>
+    <li>For desktop Google Chrome (version 111 or later) and Microsoft Edge.</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <ul>
+    <li><a href="terms.html#en">Terms of use and sale (refunds and cancellation)</a></li>
+    <li><a href="privacy.html#en">Privacy policy</a></li>
+    <li><a href="mailto:ikasumi.works@gmail.com">Contact (ikasumi.works@gmail.com)</a></li>
+    <li><a href="./" hreflang="ja" lang="ja">日本語</a></li>
+  </ul>
+  <p>Publisher: ikasumi</p>
+</footer>
+
+</div>
+</body>
+</html>

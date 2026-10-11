@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light dark">
+  <title>Thank you</title>
+  <style>
+    :root { --text: #1c1c1c; --sub: #555; --bg: #fff; --line: #d0d0d0; --box: #f6f7f8; --ok: #1a7f37; --link: #0b57d0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --text: #e6e6e6; --sub: #a8a8a8; --bg: #1e1f22; --line: #45474b; --box: #292b2f; --ok: #6fd08c; --link: #8ab4f8; }
+    }
+    [hidden] { display: none !important; }
+    body { font-family: system-ui, sans-serif; max-width: 560px; margin: 10vh auto; padding: 0 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+    h1 { font-size: 22px; }
+    a { color: var(--link); }
+    .key { font-family: ui-monospace, Consolas, monospace; font-size: 20px; background: var(--box); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-wrap: anywhere; user-select: all; }
+    button { font: inherit; padding: 4px 16px; }
+    .copied { color: var(--ok); margin-left: 8px; }
+    .note { color: var(--sub); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1 id="title"></h1>
+
+  <div id="hasKey" hidden>
+    <p id="keyLabel"></p>
+    <div id="keys"></div>
+    <ol>
+      <li id="step1"></li>
+      <li id="step2"></li>
+      <li id="step3"></li>
+    </ol>
+    <p class="note" id="keep"></p>
+  </div>
+
+  <div id="noKey" hidden>
+    <p><span id="noKeyText"></span><a id="portal" hidden></a><span id="noKeyTail"></span></p>
+    <ol>
+      <li id="step1b"></li>
+      <li id="step2b"></li>
+      <li id="step3b"></li>
+    </ol>
+  </div>
+
+  <script>
+    // 購入後のページ。Dodo Payments が、購入のあとに ?payment_id=…&status=…&license_key=… を付けてここへ戻す。
+    // キーは画面に出すだけで、どこにも送らない（通信・外のスクリプト・解析・外のフォントは無い）。
+    // 読んだ直後に、URL からキー（と、付いてくるメールアドレスなど）を消す（閲覧の履歴やブラウザの同期に残りにくくする）。
+    // 数量が2以上のときは、キーがカンマ区切りで来るので、1つずつ分けて出す。
+    // status の値では出し分けない。license_key が無いとき（年額で付いてこない場合など）は、メールとポータルを案内する。
+    (function () {
+      // 顧客ポータルの URL。まだ決まっていない間は 'TODO'（リンクにしない）。拡張の config.js の portal と同じ値を入れる
+      var PORTAL_URL = 'TODO';
+
+      var TEXT = {
+        ja: {
+          title: 'ご購入ありがとうございます',
+          keyLabel: 'あなたのキー：',
+          copy: 'コピー',
+          copied: 'コピーしました',
+          copyFailed: 'コピーできませんでした。キーを選んでコピーしてください',
+          step1: 'ブラウザで、拡張の設定画面を開きます（ツールバーの砂時計のアイコン）',
+          step2: '下の「有料版」の欄にある「購入後に届いたキー」に、このキーを貼ります',
+          step3: '［有効にする］を押します',
+          keep: 'キーは購入確認のメールにも書いてあります。このページは閉じてかまいません。',
+          noKeyText: 'キーは、購入確認のメールか、',
+          portal: '顧客ポータル',
+          noKeyTail: 'で見られます。',
+        },
+        en: {
+          title: 'Thank you for your purchase',
+          keyLabel: 'Your key:',
+          copy: 'Copy',
+          copied: 'Copied',
+          copyFailed: 'Could not copy. Please select the key and copy it',
+          step1: 'In your browser, open the settings page of the extension (the hourglass icon in the toolbar)',
+          step2: 'In the "Paid version" section at the bottom, paste this key into "The key you received after the purchase"',
+          step3: 'Press Activate',
+          keep: 'The key is also in your purchase confirmation email. You can close this page.',
+          noKeyText: 'You can find your key in the purchase confirmation email or in the ',
+          portal: 'customer portal',
+          noKeyTail: '.',
+        },
+      };
+
+      var lang = /^ja\b/i.test(navigator.language || '') ? 'ja' : 'en';
+      var text = TEXT[lang];
+      document.documentElement.lang = lang;
+      document.title = text.title;
+      var $ = function (id) { return document.getElementById(id); };
+      var put = function (id, value) { $(id).textContent = value; };
+
+      put('title', text.title);
+      ['step1', 'step2', 'step3'].forEach(function (id) {
+        put(id, text[id]);
+        put(id + 'b', text[id]);
+      });
+
+      var raw = new URLSearchParams(location.search).get('license_key') || '';
+      try {
+        history.replaceState(null, '', location.pathname);
+      } catch (e) {
+        // 消せなくても、キーは出す
+      }
+      var keys = raw.split(',').map(function (k) { return k.trim(); }).filter(function (k) { return k; });
+      if (keys.length) {
+        put('keyLabel', text.keyLabel);
+        put('keep', text.keep);
+        keys.forEach(function (key) {
+          var box = document.createElement('p');
+          box.className = 'key';
+          box.textContent = key;
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = text.copy;
+          var copied = document.createElement('span');
+          copied.className = 'copied';
+          copied.setAttribute('role', 'status');
+          button.addEventListener('click', function () {
+            var done = function (ok) { copied.textContent = ok ? text.copied : text.copyFailed; };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(key).then(function () { done(true); }, function () { done(false); });
+            } else {
+              done(false);
+            }
+          });
+          var row = document.createElement('p');
+          row.appendChild(button);
+          row.appendChild(copied);
+          $('keys').appendChild(box);
+          $('keys').appendChild(row);
+        });
+        $('hasKey').hidden = false;
+      } else {
+        put('noKeyText', text.noKeyText);
+        put('noKeyTail', text.noKeyTail);
+        var portal = $('portal');
+        if (/^https:\/\//.test(PORTAL_URL)) {
+          portal.href = PORTAL_URL;
+          portal.textContent = text.portal;
+          portal.hidden = false;
+        } else {
+          // ポータルの URL がまだ無い間は、文字だけ
+          put('noKeyText', text.noKeyText + text.portal);
+        }
+        $('noKey').hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
